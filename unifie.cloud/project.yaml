@@ -1,0 +1,15 @@
+showVerionsTab: false
+showEnvVarsTab: true
+useRawYaml: false
+allowAutoApplyLimits: false
+name: versus-incident
+title: Versus-incident
+logo: null
+tags:
+  - Monitoring
+  - DevOps
+description: >-
+  An open-source incident management system with multi-channel alerting
+  capabilities.
+oneDeploymentPerCluster: false
+notAllowRemoveNamespace: false
