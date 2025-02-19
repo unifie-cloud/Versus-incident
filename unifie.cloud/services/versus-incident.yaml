@@ -1,0 +1,260 @@
+name: versus-incident
+uiType: helm
+helmRepositoryName: unifie
+helmRepositoryURL: https://unifie-cloud.github.io/charts/helm
+helmRepositoryVersion: '1.0'
+helmRepositoryChartName: versus-incident
+rules:
+  - varName: app
+    varValueType: object
+    varValueSrcType: src_hardcoded
+    hardcodedDefaultValue: >-
+      {"image":"ghcr.io/versuscontrol/versus-incident:v1.0.0","slack_message":"*Critical
+      Error in {{.ServiceName}}*\n----------\nError
+      Details:\n```\n{{.Logs}}\n```\n----------\nOwner <@{{.UserID}}> please
+      investigate\n","config":"name: versus\nhost: 0.0.0.0\nport:
+      3000\n\nalert:\n  slack:\n    enable: true\n    token: ${SLACK_TOKEN}\n   
+      channel_id: ${SLACK_CHANNEL_ID}\n    template_path:
+      \"/app/config/slack_message.tmpl\"\n\n  telegram:\n    enable: false\n"}
+    refToSpecVar: ''
+    UIVarTitle: app
+    varApplyMethod: method_replace
+    UIVarValidationRules: []
+    UIVarInputType: string
+  - varName: app.config
+    varValueType: string
+    varValueSrcType: src_deployment_ui
+    hardcodedDefaultValue: |
+      name: versus
+      host: 0.0.0.0
+      port: 3000
+
+      alert:
+        slack:
+          enable: true
+          token: ${SLACK_TOKEN}
+          channel_id: ${SLACK_CHANNEL_ID}
+          template_path: "/app/config/slack_message.tmpl"
+
+        telegram:
+          enable: false
+    refToSpecVar: ''
+    UIVarTitle: Config (yaml)
+    varApplyMethod: method_replace
+    UIVarValidationRules: []
+    UIVarInputType: textarea
+  - varName: app.email_message
+    varValueType: string
+    varValueSrcType: src_deployment_ui
+    hardcodedDefaultValue: |
+      *Error in {{.ServiceName}}*
+      ----------
+      Error Details:
+      ```
+      {{.Logs}}
+      ```
+    refToSpecVar: ''
+    UIVarTitle: Email message
+    varApplyMethod: method_replace
+    UIVarValidationRules: []
+    UIVarInputType: textarea
+  - varName: app.image
+    varValueType: string
+    varValueSrcType: src_deployment_ui
+    hardcodedDefaultValue: ghcr.io/versuscontrol/versus-incident:v1.0.0
+    refToSpecVar: ''
+    UIVarTitle: Image
+    varApplyMethod: method_replace
+    UIVarValidationRules: []
+    UIVarInputType: string
+  - varName: app.slack_message
+    varValueType: string
+    varValueSrcType: src_deployment_ui
+    hardcodedDefaultValue: |
+      *Critical Error in {{.ServiceName}}*
+      ----------
+      Error Details:
+      ```
+      {{.Logs}}
+      ```
+      ----------
+      Owner <@{{.UserID}}> please investigate
+    refToSpecVar: ''
+    UIVarTitle: Slack message template
+    varApplyMethod: method_replace
+    UIVarValidationRules: []
+    UIVarInputType: textarea
+  - varName: env
+    varValueType: object
+    varValueSrcType: src_hardcoded
+    hardcodedDefaultValue: >-
+      {"DEBUG_BODY":"false","SLACK_ENABLE":"","SLACK_TOKEN":"","SLACK_CHANNEL_ID":"","TELEGRAM_ENABLE":"","TELEGRAM_BOT_TOKEN":"","TELEGRAM_CHAT_ID":"","EMAIL_ENABLE":"","SMTP_HOST":"","SMTP_PORT":"","SMTP_USERNAME":"","SMTP_PASSWORD":"","EMAIL_TO":"","EMAIL_SUBJECT":"","SNS_ENABLE":"","SNS_HTTPS_ENDPOINT_SUBSCRIPTION":"","SNS_TOPIC_ARN":""}
+    refToSpecVar: ''
+    UIVarTitle: env
+    varApplyMethod: method_replace
+    UIVarValidationRules: []
+    UIVarInputType: string
+  - varName: env.DEBUG_BODY
+    varValueType: string
+    varValueSrcType: src_hardcoded
+    hardcodedDefaultValue: 'false'
+    refToSpecVar: ''
+    UIVarTitle: env.DEBUG_BODY
+    varApplyMethod: method_replace
+    UIVarValidationRules: []
+    UIVarInputType: string
+  - varName: env.EMAIL_ENABLE
+    varValueType: string
+    varValueSrcType: src_deployment_ui
+    hardcodedDefaultValue: 'false'
+    refToSpecVar: ''
+    UIVarTitle: EMAIL_ENABLE
+    varApplyMethod: method_replace
+    UIVarValidationRules: []
+    UIVarInputType: boolean
+  - varName: env.EMAIL_SUBJECT
+    varValueType: string
+    varValueSrcType: src_deployment_ui
+    hardcodedDefaultValue: ''
+    refToSpecVar: ''
+    UIVarTitle: EMAIL_SUBJECT
+    varApplyMethod: method_replace
+    UIVarValidationRules: []
+    UIVarInputType: string
+  - varName: env.EMAIL_TO
+    varValueType: string
+    varValueSrcType: src_deployment_ui
+    hardcodedDefaultValue: ''
+    refToSpecVar: ''
+    UIVarTitle: EMAIL_TO
+    varApplyMethod: method_replace
+    UIVarValidationRules: []
+    UIVarInputType: string
+  - varName: env.SLACK_CHANNEL_ID
+    varValueType: string
+    varValueSrcType: src_deployment_ui
+    hardcodedDefaultValue: ''
+    refToSpecVar: ''
+    UIVarTitle: SLACK_CHANNEL_ID
+    varApplyMethod: method_replace
+    UIVarValidationRules: []
+    UIVarInputType: string
+  - varName: env.SLACK_ENABLE
+    varValueType: string
+    varValueSrcType: src_deployment_ui
+    hardcodedDefaultValue: 'false'
+    refToSpecVar: ''
+    UIVarTitle: SLACK_ENABLE
+    varApplyMethod: method_replace
+    UIVarValidationRules: []
+    UIVarInputType: boolean
+  - varName: env.SLACK_TOKEN
+    varValueType: string
+    varValueSrcType: src_deployment_ui
+    hardcodedDefaultValue: ''
+    refToSpecVar: ''
+    UIVarTitle: SLACK_TOKEN
+    varApplyMethod: method_replace
+    UIVarValidationRules: []
+    UIVarInputType: password
+  - varName: env.SMTP_HOST
+    varValueType: string
+    varValueSrcType: src_deployment_ui
+    hardcodedDefaultValue: ''
+    refToSpecVar: ''
+    UIVarTitle: SMTP_HOST
+    varApplyMethod: method_replace
+    UIVarValidationRules: []
+    UIVarInputType: string
+  - varName: env.SMTP_PASSWORD
+    varValueType: string
+    varValueSrcType: src_deployment_ui
+    hardcodedDefaultValue: ''
+    refToSpecVar: ''
+    UIVarTitle: SMTP_PASSWORD
+    varApplyMethod: method_replace
+    UIVarValidationRules: []
+    UIVarInputType: password
+  - varName: env.SMTP_PORT
+    varValueType: string
+    varValueSrcType: src_deployment_ui
+    hardcodedDefaultValue: '587'
+    refToSpecVar: ''
+    UIVarTitle: SMTP_PORT
+    varApplyMethod: method_replace
+    UIVarValidationRules: []
+    UIVarInputType: string
+  - varName: env.SMTP_USERNAME
+    varValueType: string
+    varValueSrcType: src_deployment_ui
+    hardcodedDefaultValue: ''
+    refToSpecVar: ''
+    UIVarTitle: SMTP_USERNAME
+    varApplyMethod: method_replace
+    UIVarValidationRules: []
+    UIVarInputType: string
+  - varName: env.SNS_ENABLE
+    varValueType: string
+    varValueSrcType: src_deployment_ui
+    hardcodedDefaultValue: 'false'
+    refToSpecVar: ''
+    UIVarTitle: SNS_ENABLE
+    varApplyMethod: method_replace
+    UIVarValidationRules: []
+    UIVarInputType: boolean
+  - varName: env.SNS_HTTPS_ENDPOINT_SUBSCRIPTION
+    varValueType: string
+    varValueSrcType: src_deployment_ui
+    hardcodedDefaultValue: ''
+    refToSpecVar: ''
+    UIVarTitle: SNS_HTTPS_ENDPOINT_SUBSCRIPTION
+    varApplyMethod: method_replace
+    UIVarValidationRules: []
+    UIVarInputType: string
+  - varName: env.SNS_TOPIC_ARN
+    varValueType: string
+    varValueSrcType: src_deployment_ui
+    hardcodedDefaultValue: ''
+    refToSpecVar: ''
+    UIVarTitle: SNS_TOPIC_ARN
+    varApplyMethod: method_replace
+    UIVarValidationRules: []
+    UIVarInputType: string
+  - varName: env.TELEGRAM_BOT_TOKEN
+    varValueType: string
+    varValueSrcType: src_deployment_ui
+    hardcodedDefaultValue: ''
+    refToSpecVar: ''
+    UIVarTitle: TELEGRAM_BOT_TOKEN
+    varApplyMethod: method_replace
+    UIVarValidationRules: []
+    UIVarInputType: password
+  - varName: env.TELEGRAM_CHAT_ID
+    varValueType: string
+    varValueSrcType: src_deployment_ui
+    hardcodedDefaultValue: ''
+    refToSpecVar: ''
+    UIVarTitle: TELEGRAM_CHAT_ID
+    varApplyMethod: method_replace
+    UIVarValidationRules: []
+    UIVarInputType: string
+  - varName: env.TELEGRAM_ENABLE
+    varValueType: string
+    varValueSrcType: src_deployment_ui
+    hardcodedDefaultValue: 'false'
+    refToSpecVar: ''
+    UIVarTitle: TELEGRAM_ENABLE
+    varApplyMethod: method_replace
+    UIVarValidationRules: []
+    UIVarInputType: boolean
+routes:
+  - host: '{{ .deployment.domain }}'
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: versus-service
+              port:
+                number: 3000
