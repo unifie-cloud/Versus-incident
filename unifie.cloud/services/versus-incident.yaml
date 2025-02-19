@@ -9,7 +9,7 @@ rules:
     varValueType: object
     varValueSrcType: src_hardcoded
     hardcodedDefaultValue: >-
-      {"image":"ghcr.io/versuscontrol/versus-incident:v1.0.0","slack_message":"*Critical
+      {"image":"ghcr.io/versuscontrol/versus-incident:v1.0.1","slack_message":"*Critical
       Error in {{.ServiceName}}*\n----------\nError
       Details:\n```\n{{.Logs}}\n```\n----------\nOwner <@{{.UserID}}> please
       investigate\n","config":"name: versus\nhost: 0.0.0.0\nport:
@@ -61,7 +61,7 @@ rules:
   - varName: app.image
     varValueType: string
     varValueSrcType: src_deployment_ui
-    hardcodedDefaultValue: ghcr.io/versuscontrol/versus-incident:v1.0.0
+    hardcodedDefaultValue: ghcr.io/versuscontrol/versus-incident:v1.0.1
     refToSpecVar: ''
     UIVarTitle: Image
     varApplyMethod: method_replace
