@@ -258,3 +258,7 @@ routes:
               name: versus-service
               port:
                 number: 3000
+monitoring:
+  - host: '{{ .deployment.domain }}'
+    path: /healthz
+    timeout: 30000
